@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>abgefahrene adjektive</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="words" id="words">
+    <span class="adj">schwindelerregend</span>
+    <span class="dot">.</span>
+    <span class="adj">himmelschreiend</span>
+    <span class="dot">.</span>
+    <span class="adj">blümerant</span>
+    <span class="dot">.</span>
+    <span class="adj">kapuzenförmig</span>
+    <span class="dot">.</span>
+    <span class="adj">trojanisch</span>
+    <span class="dot">.</span>
+    <span class="adj">thixotrop</span>
+    <span class="dot">.</span>
+    <span class="adj">kategorisch</span>
+    <span class="dot">.</span>
+    <span class="adj">kafkaesk</span>
+    <span class="dot">.</span>
+    <span class="adj">aufblasend</span>
+    <span class="dot">.</span>
+    <span class="adj">angagiert</span>
+    <span class="dot">.</span>
+    <span class="adj">frittig</span>
+    <span class="dot">.</span>
+    <span class="adj">flott</span>
+    <span class="dot">.</span>
+    <span class="adj">tiefgekühlt</span>
+    <span class="dot">.</span>
+    <span class="adj">fabriziös</span>
+    <span class="dot">.</span>
+    <span class="adj">kapriziös</span>
+  </div>
+
+  <form id="add-form">
+    <input type="text" id="new-adj" placeholder="neues adjektiv" maxlength="80" required>
+    <button type="submit">+</button>
+  </form>
+
+  <script>
+    const words = document.getElementById('words');
+    const form = document.getElementById('add-form');
+    const input = document.getElementById('new-adj');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const value = input.value.trim();
+      if (!value) return;
+
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.textContent = '.';
+      words.appendChild(dot);
+
+      const adj = document.createElement('span');
+      adj.className = 'adj';
+      adj.textContent = value;
+      words.appendChild(adj);
+
+      input.value = '';
+    });
+  </script>
+</body>
+</html>
