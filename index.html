@@ -7,41 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="words" id="words">
-    <span class="adj">schwindelerregend</span>
-    <span class="dot">.</span>
-    <span class="adj">himmelschreiend</span>
-    <span class="dot">.</span>
-    <span class="adj">blümerant</span>
-    <span class="dot">.</span>
-    <span class="adj">kapuzenförmig</span>
-    <span class="dot">.</span>
-    <span class="adj">trojanisch</span>
-    <span class="dot">.</span>
-    <span class="adj">thixotrop</span>
-    <span class="dot">.</span>
-    <span class="adj">kategorisch</span>
-    <span class="dot">.</span>
-    <span class="adj">kafkaesk</span>
-    <span class="dot">.</span>
-    <span class="adj">aufblasend</span>
-    <span class="dot">.</span>
-    <span class="adj">angagiert</span>
-    <span class="dot">.</span>
-    <span class="adj">frittig</span>
-    <span class="dot">.</span>
-    <span class="adj">flott</span>
-    <span class="dot">.</span>
-    <span class="adj">tiefgekühlt</span>
-    <span class="dot">.</span>
-    <span class="adj">fabriziös</span>
-    <span class="dot">.</span>
-    <span class="adj">kapriziös</span>
-        <span class="dot">.</span>
-    <span class="adj">verspendet</span>
-        <span class="dot">.</span>
-    <span class="adj">farbenleer</span>
-  </div>
+  <div class="words" id="words"></div>
 
   <form id="add-form">
     <input type="text" id="new-adj" placeholder="neues adjektiv" maxlength="80" required>
@@ -49,27 +15,52 @@
   </form>
 
   <script>
-    const words = document.getElementById('words');
+    // ---- just edit this list ----
+    const adjektive = [
+      'schwindelerregend',
+      'himmelschreiend',
+      'blümerant',
+      'kapuzenförmig',
+      'trojanisch',
+      'thixotrop',
+      'kategorisch',
+      'kafkaesk',
+      'aufblasend',
+      'angagiert',
+      'frittig',
+      'flott',
+      'tiefgekühlt',
+      'fabriziös',
+      'kapriziös',
+      'verspendet',
+      'farbenleer',
+    ];
+    // ----------------------------
+
+    const wordsEl = document.getElementById('words');
     const form = document.getElementById('add-form');
     const input = document.getElementById('new-adj');
+
+    function render() {
+      wordsEl.innerHTML = '';
+      adjektive.forEach((w) => {
+        const span = document.createElement('span');
+        span.className = 'adj';
+        span.textContent = w;
+        wordsEl.appendChild(span);
+      });
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       const value = input.value.trim();
       if (!value) return;
-
-      const dot = document.createElement('span');
-      dot.className = 'dot';
-      dot.textContent = '.';
-      words.appendChild(dot);
-
-      const adj = document.createElement('span');
-      adj.className = 'adj';
-      adj.textContent = value;
-      words.appendChild(adj);
-
+      adjektive.push(value);
+      render();
       input.value = '';
     });
+
+    render();
   </script>
 </body>
 </html>
