@@ -72,7 +72,7 @@
       'hartnäckig',
       'kompromisslos',
       'resolut'
-    ];
+    ].map(w => ({ word: w, count: 1 }));
     // ----------------------------
 
     const wordsEl = document.getElementById('words');
@@ -120,10 +120,12 @@
 
     function render() {
       wordsEl.innerHTML = '';
-      adjektive.forEach((w, i) => {
+      adjektive.forEach((item, i) => {
         const span = document.createElement('span');
         span.className = 'adj';
-        span.textContent = w;
+        span.textContent = item.word;
+        const scale = 1 + (item.count - 1) * 0.2;
+        span.style.setProperty('--s', scale);
         span.addEventListener('click', () => pop(span, i));
         wordsEl.appendChild(span);
       });
@@ -133,8 +135,27 @@
       e.preventDefault();
       const value = input.value.trim();
       if (!value) return;
-      adjektive.push(value);
-      render();
+
+      const existingIndex = adjektive.findIndex(item =>
+        item.word.toLowerCase() === value.toLowerCase()
+      );
+
+      if (existingIndex !== -1) {
+        adjektive[existingIndex].count++;
+        const spans = wordsEl.querySelectorAll('.adj');
+        const span = spans[existingIndex];
+
+        if (adjektive[existingIndex].count > 5) {
+          pop(span, existingIndex);
+        } else {
+          const scale = 1 + (adjektive[existingIndex].count - 1) * 0.2;
+          span.style.setProperty('--s', scale);
+        }
+      } else {
+        adjektive.push({ word: value, count: 1 });
+        render();
+      }
+
       input.value = '';
     });
 
